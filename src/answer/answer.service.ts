@@ -30,8 +30,8 @@ export class AnswerService {
 
         return {
             surveyFound,
-            "votes for option 1": option1,
-            "votes for option 2": option2
+            option1: option1,
+            option2: option2
         }
     }
 
