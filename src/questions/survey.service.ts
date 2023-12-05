@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
 import { QuestionsEntity } from './entities/questions.entity';
 import { SurveyEntity } from './entities/survey.entity';
+import {OrderRandomSql} from '../common/OrderRandom.enum'
 
 @Injectable()
 export class SurveyService {
@@ -21,7 +22,7 @@ export class SurveyService {
       .createQueryBuilder('survey')
       .leftJoinAndSelect("survey.questions", "questions")
       .select()
-      .orderBy('RAND()')
+      .orderBy(OrderRandomSql.postgres_randomOrder)
       .getOne();
       
     

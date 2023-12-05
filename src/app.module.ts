@@ -19,14 +19,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: async (_configService: ConfigService)=> ({
-        type: 'mysql',
+        type: 'postgres',
         host: _configService.get<string>('DB_HOST') || 'localhost',
-        port: parseInt(_configService.get<string>('DB_PORT')) || 3306,
+        port: _configService.get<number>("DB_PORT"),
         username: _configService.get<string>('DB_USERNAME') ||'root',
         password: _configService.get<string>('DB_PASSWORD')||'Ironman312345aAA',
         database: _configService.get<string>('DB_NAME') || 'higher_or_lower',
         entities: [QuestionsEntity, SurveyEntity, AnswersEntity],
         synchronize: true,
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false
+          }
+        }
 
     })
   })
